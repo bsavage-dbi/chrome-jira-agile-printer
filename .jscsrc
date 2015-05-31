@@ -1,0 +1,10 @@
+{
+  "preset": "google",
+  "maximumLineLength": {
+    "value": 120,
+    "allowComments": true,
+    "allowRegex": true
+  },
+  "validateIndentation": 4,
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties"
+}

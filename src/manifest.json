@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "Jira Print View",
+    "description": "Jira Print View",
+    "version": "1.0",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*.atlassian.net/*"
+            ],
+            "css": [
+                "app.min.css"
+            ],
+            "js": [
+                "libs.js",
+                "index.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "permissions": [
+//        "http://*/*",
+//        "https://*/*",
+//        "https://ajax.googleapis.com/"
+    ]
+}
