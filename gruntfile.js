@@ -84,6 +84,12 @@ module.exports = function(grunt) {
                 src: ['manifest.json'],
                 cwd: '<%= globalConfig.sourceDir %>',
                 dest: '<%= globalConfig.buildDir %>'
+            },
+            icons: {
+                expand: true,
+                src: ['**/*.png'],
+                cwd: '<%= globalConfig.sourceDir %>/icons',
+                dest: '<%= globalConfig.buildDir %>'
             }
         }
     });
@@ -97,6 +103,7 @@ module.exports = function(grunt) {
         'concat:dev',
         'uglify',
         'copy:files',
+        'copy:icons',
         'concat:post',
         'concat:templates',
         'clean:afterDist'

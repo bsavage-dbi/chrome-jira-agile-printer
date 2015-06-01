@@ -8,9 +8,6 @@
             "matches": [
                 "https://*.atlassian.net/*"
             ],
-//            "css": [
-//                "app.min.css"
-//            ],
             "js": [
                 "index.min.js"
             ],
@@ -18,9 +15,18 @@
         }
     ],
     "permissions": [
-//        "http://*/*",
-//        "https://*/*",
-//        "https://ajax.googleapis.com/"
+        //        "http://*/*",
+        //        "https://*/*",
+        //        "https://ajax.googleapis.com/"
     ],
-    "web_accessible_resources": ["app.min.css", "templates.html", "print.min.js"]
+    "web_accessible_resources": [
+        "app.min.css",
+        "templates.html",
+        "print.min.js"
+    ],
+    "icons": {
+//        "16": "icon16.png",
+//        "48": "icon48.png",
+        "128": "icon128.png"
+    }
 }
