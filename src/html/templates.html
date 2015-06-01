@@ -1,0 +1,121 @@
+<script type="text/ng-template" id="chrDialogView.html">
+    <header class="aui-dialog2-header">
+        <h2 class="aui-dialog2-header-main">Print Options</h2>
+
+        <div class="aui-dialog2-header-secondary">
+            <button class="aui-button aui-button-primary" ng-click="printPreview()">Print Preview</button>
+        </div>
+
+        <a class="aui-dialog2-header-close">
+            <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+        </a>
+    </header>
+    <div class="aui-dialog2-content">
+        <div class="aui-tabs horizontal-tabs" role="application">
+            <ul class="tabs-menu" role="tablist">
+                <li class="menu-item" role="presentation" ng-class="{'active-tab': currentTab == 0}">
+                    <a role="tab" aria-selected="true" ng-click="openTab(0)">
+                        <strong>Field Settings</strong>
+                    </a>
+                </li>
+                <li class="menu-item" role="presentation" ng-class="{'active-tab': currentTab == 1}">
+                    <a role="tab" aria-selected="false" ng-click="openTab(1)">
+                        <strong>Sprints</strong></a>
+                </li>
+                <li class="menu-item" role="presentation" ng-class="{'active-tab': currentTab == 2}">
+                    <a role="tab" aria-selected="false" ng-click="openTab(2)">
+                        <strong>Issues</strong></a>
+                </li>
+            </ul>
+            <div class="tabs-pane" chr-dialog-tab="" tab-id="0">
+                <div chr-field-settings settings="model.fieldSettings"></div>
+            </div>
+            <div class="tabs-pane" chr-dialog-tab="" tab-id="1">
+                <div chr-sprint-settings settings="model.sprintSettings"></div>
+            </div>
+
+            <div class="tabs-pane" chr-dialog-tab="" tab-id="2">
+                <div chr-issue-settings settings="model.issueSettings"></div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/ng-template" id="chrDialogTab.html">
+    <div role="tabpanel" aria-hidden="false"
+         ng-show="view.getCurrentTab() == tabId"
+         ng-class="{'active-pane': view.getCurrentTab() == tabId}"
+         ng-transclude></div>
+</script>
+<script type="text/ng-template" id="chrFieldSettings.html">
+    <form class="aui chr-field-list">
+        <ul>
+            <li ng-repeat="field in fields" class="field-group">
+                <label>{{field.label}}</label>
+                <input placeholder="Order" type="text" class="text short-field" ng-model="settings[field.id].order">
+                <input type="checkbox" class="checkbox" ng-model="settings[field.id].selected">
+            </li>
+        </ul>
+    </form>
+</script>
+
+<script type="text/ng-template" id="chrSprintSettings.html">
+    <form class="aui chr-field-list">
+        <ul>
+            <li ng-repeat="sprint in sprints" class="field-group">
+                <label>{{sprint.name}}</label>
+                <input type="checkbox" class="checkbox" ng-model="settings[sprint.id].selected">
+            </li>
+        </ul>
+    </form>
+</script>
+
+<script type="text/ng-template" id="chrIssueSettings.html">
+    <form class="aui chr-field-list">
+        <table class="aui">
+            <thead>
+            <tr>
+                <th id="key">Key</th>
+                <th id="active">Active</th>
+                <th id="summary">Summary</th>
+                <th id="assignee">Assignee</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="issue in issues | orderBy:'id'">
+                <td headers="key">{{issue.key}}</td>
+                <td headers="active">
+                    <input type="checkbox" class="checkbox" ng-model="settings[issue.id].selected">
+                </td>
+                <td headers="summary">
+                    {{issue.summary}}
+                </td>
+                <td headers="assignee">
+                    {{issue.assigneeName}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</script>
+<script type="text/ng-template" id="chr-print-preview.html">
+    <section role="dialog" class="chr-print-preview-dialog aui-layer aui-dialog2 aui-dialog2-xlarge">
+        <header class="aui-dialog2-header">
+            <h2 class="aui-dialog2-header-main">Print Preview</h2>
+
+            <div class="aui-dialog2-header-secondary">
+                <button class="aui-button aui-button-primary" ng-click="print()">Print</button>
+            </div>
+            <a class="aui-dialog2-header-close modal-dialog-close">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span> </a>
+        </header>
+
+        <div class="aui-dialog2-content dialog-body"></div>
+    </section>
+</script>
+<script type="text/ng-template" id="chr-issue-item.html">
+    <div ng-repeat="field in fields">
+        <span class="chr-label">{{field.label}}</span>
+        <span class="chr-value" ng-if="field.renderer == 'text'" ng-bind="field.text"></span>
+        <span class="chr-value" ng-if="field.renderer == 'html'" ng-bind-html="convertToSafeHtml(field.html)"></span>
+    </div>
+</script>

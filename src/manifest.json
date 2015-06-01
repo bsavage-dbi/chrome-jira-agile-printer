@@ -8,12 +8,11 @@
             "matches": [
                 "https://*.atlassian.net/*"
             ],
-            "css": [
-                "app.min.css"
-            ],
+//            "css": [
+//                "app.min.css"
+//            ],
             "js": [
-                "libs.js",
-                "index.js"
+                "index.min.js"
             ],
             "run_at": "document_end"
         }
@@ -22,5 +21,6 @@
 //        "http://*/*",
 //        "https://*/*",
 //        "https://ajax.googleapis.com/"
-    ]
+    ],
+    "web_accessible_resources": ["app.min.css", "templates.html", "print.min.js"]
 }

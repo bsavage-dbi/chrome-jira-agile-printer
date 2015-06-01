@@ -1,3 +1,84 @@
-.main {
-  background: red;
+.chr-field-list {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+}
+
+.chr-print-area {
+  display: none;
+}
+
+#modal-overlay {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  .chr-print-preview-dialog {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 69px;
+  }
+  .chr-issue-item {
+    page-break-inside: avoid;
+    display: block;
+    border: #777 1px solid;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow: hidden;
+    //TODO: make 4 columns
+    width: 20%;
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    > div {
+      border-bottom: #777 1px solid;
+      margin-top: 2px;
+    }
+    .chr-label {
+      font-weight: bold;
+    }
+    .chr-value {
+
+    }
+    &:nth-child(4n + 1) {
+      clear: left;
+    }
+  }
+  &.overlay-visible {
+    display: block;
+  }
+}
+
+@media print {
+
+  .aui-dialog2-header {
+    display: none;
+  }
+
+  #modal-overlay {
+    display: block !important;
+  }
+
+  #modal-overlay .chr-print-preview-dialog {
+    position: static;
+  }
+}
+
+@media print and (orientation: landscape) {
+  /* landscape styles */
+  .chr-issue-item {
+    max-height: 310px !important;
+  }
+}
+
+@media print and (orientation: portrait) {
+  /* portrait styles */
+  .chr-issue-item {
+    max-height: 440px !important;
+  }
 }

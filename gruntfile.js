@@ -12,46 +12,58 @@ module.exports = function(grunt) {
         clean: {
             dev: [],
             dist: ['<%= globalConfig.buildDir %>'],
-            afterDist: ['<%= globalConfig.buildDir %>/app.css']
-        },
-
-        jshint: {
-            /* http://jshint.com/docs/options/ */
-            options: {
-                jshintrc: '.jshintrc'
-            },
-            all: [
-                'gruntfile.js', 'src/js/**/*.js']
-        },
-        jscs: {
-            all: {
-                src: ['gruntfile.js', 'src/js/**/*.js'],
-                options: {
-                    config: '.jscsrc'
-                }
-            }
+            afterDist: ['<%= globalConfig.buildDir %>/app.css',
+                '<%= globalConfig.buildDir %>/index.js',
+                '<%= globalConfig.buildDir %>/print.js']
         },
 
         less: {
             build: {
                 options: {
-                    paths: ['<%= globalConfig.sourceDir %>/less']
+                    relativeUrls: true
                 },
                 files: {
                     '<%= globalConfig.buildDir %>/app.css': '<%= globalConfig.sourceDir %>/less/main.less'
                 }
             }
         },
+        concat: {
+            dev: {
+                files: {
+                    '<%= globalConfig.buildDir %>/print.js': [
+                        '<%= globalConfig.sourceDir %>/js/app.js',
+                        '<%= globalConfig.sourceDir %>/js/components/**/*.js',
+                        '<%= globalConfig.sourceDir %>/js/inject.js'
+                    ]
+                }
+            },
+            templates: {
+                files: {
+                    '<%= globalConfig.buildDir %>/templates.html': [
+                        '<%= globalConfig.sourceDir %>/html/templates.html'
+                    ]
+                }
+
+            },
+            post: {
+                files: {
+                    '<%= globalConfig.buildDir %>/print.min.js': [
+                        //'<%= globalConfig.sourceDir %>/lib/jquery/dist/jquery.js',
+                        '<%= globalConfig.sourceDir %>/lib/angular/angular.js',
+                        '<%= globalConfig.buildDir %>/print.min.js'
+                    ]
+                }
+            }
+        },
         uglify: {
             options: {
-                mangle: false
+                mangle: false,
+                beautify: true
             },
             dist: {
                 files: {
-                    '<%= globalConfig.buildDir %>/index.js': ['<%= globalConfig.sourceDir %>/js/print.js'],
-                    '<%= globalConfig.buildDir %>/libs.js': [
-                        '<%= globalConfig.sourceDir %>/lib/jquery/jquery.min.js'
-                    ]
+                    '<%= globalConfig.buildDir %>/index.min.js': ['<%= globalConfig.sourceDir %>/js/index.js'],
+                    '<%= globalConfig.buildDir %>/print.min.js': ['<%= globalConfig.buildDir %>/print.js']
                 }
             }
         },
@@ -78,17 +90,15 @@ module.exports = function(grunt) {
     // Automatically load all modules which start with "grunt-*" pattern
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    grunt.registerTask('compile', [
-        'jshint',
-        'jscs']);
-
     grunt.registerTask('dist', [
         'clean',
-        'compile',
         'less:build',
         'cssmin',
+        'concat:dev',
         'uglify',
         'copy:files',
+        'concat:post',
+        'concat:templates',
         'clean:afterDist'
     ]);
 };

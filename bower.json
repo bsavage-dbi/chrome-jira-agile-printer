@@ -1,22 +1,26 @@
 {
-    "name": "chrome-jira-agile-printer",
-    "version": "1.0",
-    "authors": [
-        "Anton Nesterenko <nesterenko.anton@gmail.com>"
-    ],
-    "license": "MIT",
-    "private": false,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "jquery": "2.0.3"
-    },
-    "resolutions": {
-        "jquery": ">= 2.0.3"
-    }
+  "name": "chrome-jira-agile-printer",
+  "version": "1.0",
+  "authors": [
+    "Anton Nesterenko <nesterenko.anton@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "react": "~0.13.3"
+  },
+  "resolutions": {
+    "jquery": ">= 2.1.0"
+  },
+  "devDependencies": {
+    "angular": "~1.4.0"
+  }
 }
